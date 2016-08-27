@@ -1,0 +1,33 @@
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# IDE specific
+.idea
+*.iml
+.classpath
+.project
+
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# build tool
+target/
+output/
+extent-report/
+*.DS_Store
