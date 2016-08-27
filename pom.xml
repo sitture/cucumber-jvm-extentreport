@@ -29,8 +29,8 @@
 	
 	<scm>
         <url>https://github.com/haroon-sheikh/cucumber-jvm-extentreport</url>
-        <connection>scm:git:git://github.com/haroon-sheikh/cucumber-jvm-extentreport.git</connection>
-        <developerConnection>scm:git:git@github.com/haroon-sheikh/cucumber-jvm-extentreport.git</developerConnection>
+        <connection>scm:git:git@github.com:haroon-sheikh/cucumber-jvm-extentreport.git</connection>
+        <developerConnection>scm:git:git@github.com:haroon-sheikh/cucumber-jvm-extentreport.git</developerConnection>
     </scm>
     
     <developers>
