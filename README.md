@@ -23,7 +23,7 @@ public class RunCukesTest {
     @BeforeClass
     public static void setup() {
         // Initiates the extent report and generates the output in the target/extent-report/<TIMESTAMP>/index.html file by default.
-        ExtentCucumberFormatter.initiateExtentFormatter();
+        ExtentFormatter.initiateExtentFormatter();
 
         // Loads the extent config xml to customize on the report.
         ExtentFormatter.loadConfig(new File("src/test/resources/config.xml"));
@@ -43,7 +43,7 @@ public class RunCukesTest {
 By default, reports are generated at `targer/extent-report/<TIMESTAMP>/index.html`. To change the default location, add a parameter when initializing the report. E.g.
 
 ```java
-ExtentCucumberFormatter.initiateExtentFormatter(new File(target/myNewLocation/index.html));
+ExtentFormatter.initiateExtentFormatter(new File(target/myNewLocation/index.html));
 ```
 
 ### Configuration file
