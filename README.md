@@ -1,4 +1,4 @@
-# cucumber-jvm-extentreport [![Build Status](https://travis-ci.org/haroon-sheikh/cucumber-jvm-extentreport.svg?branch=master)](https://travis-ci.org/haroon-sheikh/cucumber-jvm-extentreport)
+# cucumber-jvm-extentreport [![Build Status](https://travis-ci.org/sitture/cucumber-jvm-extentreport.svg?branch=master)](https://travis-ci.org/sitture/cucumber-jvm-extentreport)
 
 A custom `cucumber-jvm` report formatter using [ExtentReports](http://extentreports.relevantcodes.com)
 
