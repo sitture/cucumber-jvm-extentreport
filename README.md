@@ -13,7 +13,7 @@ Add the following to your list of dependencies in `pom.xml`
 </dependency>
 ```
 
-## Cucumber Runner
+## Setup - Cucumber  Runner
 Add the following to your cucumber runner class:
 
 ```java
@@ -40,7 +40,7 @@ public class RunCukesTest {
 ```
 ### Reports Location
 
-By default, reports are generated at `targer/extent-report/<TIMESTAMP>/index.html`. To change the default location, add a parameter when initializing the report. E.g.
+By default, reports are generated at `target/extent-report/<TIMESTAMP>/index.html`. To change the default location, add a parameter when initializing the report. E.g.
 
 ```java
 ExtentFormatter.initiateExtentFormatter(new File(target/myNewLocation/index.html));
