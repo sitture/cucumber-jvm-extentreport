@@ -1,12 +1,9 @@
-# cucumber-jvm-extentreport
+# cucumber-jvm-extentreport [![Build Status](https://travis-ci.org/haroon-sheikh/cucumber-jvm-extentreport.svg?branch=master)](https://travis-ci.org/haroon-sheikh/cucumber-jvm-extentreport)
 
 A custom `cucumber-jvm` report formatter using [ExtentReports](http://extentreports.relevantcodes.com)
 
-## Build Status
-[![Build Status](https://travis-ci.org/haroon-sheikh/cucumber-jvm-extentreport.svg?branch=master)](https://travis-ci.org/haroon-sheikh/cucumber-jvm-extentreport)
-
 ## Usage
-If you are using a maven based project, you can directly add this library as a dependency:
+Add the following to your list of dependencies in `pom.xml`
 
 ```
 <dependency>
@@ -14,6 +11,48 @@ If you are using a maven based project, you can directly add this library as a d
     <artifactId>cucumber-jvm-extentsreport</artifactId>
     <version>1.0.0</version>
 </dependency>
+```
+
+## Cucumber Runner
+Add the following to your cucumber runner class:
+
+```java
+@RunWith(Cucumber.class)
+@CucumberOptions(plugin = {"com.sitture.ExtentFormatter"})
+public class RunCukesTest {
+    @BeforeClass
+    public static void setup() {
+        // Initiates the extent report and generates the output in the target/extent-report/<TIMESTAMP>/index.html file by default.
+        ExtentCucumberFormatter.initiateExtentFormatter();
+
+        // Loads the extent config xml to customize on the report.
+        ExtentFormatter.loadConfig(new File("src/test/resources/config.xml"));
+
+        ExtentFormatter.addSystemInfo("Browser", "Chrome");
+		ExtentFormatter.addSystemInfo("Selenium", "v2.53.1");
+
+		Map<String, String> systemInfo = new HashMap<String, String>();
+		systemInfo.put("Cucumber", "v1.2.4");
+		systemInfo.put("Extent Reports", "v2.41.1");
+		ExtentFormatter.addSystemInfo(systemInfo);
+    }
+}
+```
+### Reports Location
+
+By default, reports are generated at `targer/extent-report/<TIMESTAMP>/index.html`. To change the default location, add a parameter when initializing the report. E.g.
+
+```java
+ExtentCucumberFormatter.initiateExtentFormatter(new File(target/myNewLocation/index.html));
+```
+
+### Configuration file
+
+Refer here to create the config xml file: [ExtentReports Configuration](http://extentreports.relevantcodes.com/java/#configuration)
+To load the config file:
+
+```
+ExtentFormatter.loadConfig(new File("your config xml file path"));
 ```
 
 ## Contributing
