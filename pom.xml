@@ -4,7 +4,7 @@
 	<groupId>com.sitture</groupId>
 	<artifactId>cucumber-jvm-extentreport</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<name>cucumber-jvm-extentreport</name>
 	<url>https://github.com/sitture/cucumber-jvm-extentreport</url>
 	<description>A custom cucumber-jvm formatter using ExtentReports</description>
@@ -75,7 +75,7 @@
 		</snapshotRepository>
 		<repository>
 			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
 		</repository>
 	</distributionManagement>
 
