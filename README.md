@@ -1,5 +1,5 @@
 # cucumber-jvm-extentreport 
-[![Build Status](https://travis-ci.org/sitture/cucumber-jvm-extentreport.svg?branch=master)](https://travis-ci.org/sitture/cucumber-jvm-extentreport)
+[![Build Status](https://travis-ci.org/sitture/cucumber-jvm-extentreport.svg?branch=master)](https://travis-ci.org/sitture/cucumber-jvm-extentreport) [![Maven Central](https://img.shields.io/maven-central/v/com.sitture/cucumber-jvm-extentreporting.svg?maxAge=300)](http://search.maven.org/#search%7Cga%7C1%7Ccom.sitture) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000?style=flat-square)]()(https://raw.githubusercontent.com/sitture/cucumber-jvm-extentreport/master/LICENSE)
 
 A custom `cucumber-jvm` report formatter using [ExtentReports](http://extentreports.relevantcodes.com)
 
