@@ -50,7 +50,7 @@ public class RunCukesTest {
 By default, reports are generated at `target/extent-report/<TIMESTAMP>/index.html`. To change the default location, add a parameter when initializing the report. E.g.
 
 ```java
-ExtentFormatter.initiateExtentFormatter(new File(target/myNewLocation/index.html));
+ExtentFormatter.initiateExtentFormatter(new File("target/myNewLocation/index.html"));
 ```
 
 ### Configuration file
