@@ -1,5 +1,5 @@
 # cucumber-jvm-extentreport 
-[![Build Status](https://travis-ci.org/sitture/cucumber-jvm-extentreport.svg?branch=master)](https://travis-ci.org/sitture/cucumber-jvm-extentreport) [![Maven Central](https://img.shields.io/maven-central/v/com.sitture/cucumber-jvm-extentreporting.svg?maxAge=300)](http://search.maven.org/#search%7Cga%7C1%7Ccom.sitture) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000?style=flat-square)]()(https://raw.githubusercontent.com/sitture/cucumber-jvm-extentreport/master/LICENSE)
+[![Build Status](https://travis-ci.org/sitture/cucumber-jvm-extentreport.svg?branch=master)](https://travis-ci.org/sitture/cucumber-jvm-extentreport) [![Maven Central](https://img.shields.io/maven-central/v/com.sitture/cucumber-jvm-extentreporting.svg?maxAge=300)](http://search.maven.org/#search|ga|1|g:"com.sitture") [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000?style=flat-square)]()(https://raw.githubusercontent.com/sitture/cucumber-jvm-extentreport/master/LICENSE)
 
 A custom `cucumber-jvm` report formatter using [ExtentReports](http://extentreports.relevantcodes.com)
 
@@ -12,6 +12,12 @@ Add the following to your list of dependencies in `pom.xml`
     <artifactId>cucumber-jvm-extentsreport</artifactId>
     <version>1.0.0</version>
 </dependency>
+```
+
+Add the following if you're using gradle to your `build.gradle` file.
+
+```
+compile 'com.sitture:cucumber-jvm-extentreport:1.0.0'
 ```
 
 ## Setup - Cucumber  Runner
