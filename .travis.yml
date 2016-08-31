@@ -1,10 +1,16 @@
 language: java
 jdk:
-- openjdk7
+- oraclejdk7
 notifications:
   email:
   - haroon_sheikh@hotmail.co.uk
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
+after_success:
+  	- "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && [[ ${TRAVIS_TAG} == '' ]] && mvn deploy -DskipTests --settings settings.xml"
+env:
+  global:
+  - secure: WkQVoVO4OGvvPMT1XBwyWSq0zvVkFJri005UX0El4OK53rSitKKfnte8NA/DzJVmkepWAFdxNArL2Y/Q8wXSOkxut2ZSRrKSfl1YcPqB6t9/o10hDLc8zqFJckxHQOYzXEYoEbfa/5nX0Qmg3koQ8m2u31Fkd2imbHsujwk+vuopOPmeYo4VpkVVYvwg7SBw2am77seChetUR0Y/VscAu1/FK8W2Dc7N1q+X39g4gIzUeYscwpp5iouJJZd+GtCtLL/iFhS54NVjNcnkevFEi2xyiA5C97DCarunyeEvJHFTPJxWyNd+rP6vq/lOBdSa6fWnVMcUkKLKtVrYK2Oc1gj4ofObF5iHqbU5Jx0Ek+OXIxZTJhEvTP30tqAOWFOJue0L/cWS+PW8ImsGzkJ1RK2HsAZSjqFr4QS4oa+CZ2Hi7AHstwNDUP/XIzXjFsnslif5V0KfPmuwcejhkS1d6OK92cJ0iBlpGO2E1lqRfY1vBA4q22pFiEOhMJfYuO7xWC7uhcKlrP1juBxfa3fRI6nKZiv8wspJ8XWAzuYblEIJzM0fii/gSEmMPegWb3Zcyo3THrwPj4CWr1LNzLsw7hyu8y74Z7//PPwwGqGj0vBb4uDGdDbLN8im1ZXOW/WPuir3cZ0iGHKVbLXruPSjvHGoTe1mhWXJa+VJHXFx44c=
+  - secure: GXx01rc9N2R3t0pR6uiPOq/Brk6Wopd1KcvS2dX7YfrSV2Cv/IJzu7NFt5Lgt9j6JQnrQht3o1WGfLhrYZB+/RUvRs8YCN0HgX9/y+3qfzX+G1z8K6iXYQve4AcMVLpfnTYEzs+Qx2Z53csD/baMW82lp9FcT6G5+r88Pi0bdj5YxWiKwCkM3r+SFSy3w3aO9Sq2+B8utbeHPMeboD+ae+OWDaXgp/N/rSM/vE4TogQaLW5UplRbI4hQy7TL3pyZdoGNoqrXz8TwnvlF4tTm39WNf6g56Ob2V9ya9O/G+v/PavbVk5OD+RM9ikfuuR0Pd8ke2Fx0h7ljtIlhqiKDi7OhzYUqnQVDkAFii9ZaAInjKRgLsRvOIEyT2lcncWA7dsK6lqQuHQt1YfKRnY/H+VeQfczALV9Q8SCgBJSJzPUmNxdXLqm4fGbEpdQdvKrlVUtEXnFnXt0IDdOhUtNBQiNE0N0j6hXrp0c+K29zrCaYqCHdk19d+FlmzvRo1qVDdRkS1n97ivorOKsidMTqwABiwxtmKXfqgaohfUUs6m0evKCiZxeaQ5f6Fb1lcaqjt7v9+rUSO9SaDS0EFyQq7vN/dJ1BkhL7AUWzePvyuxVoqR8ul6RrTJdO7jrPh8gLxHubeHz6dQWLpasHAMIa7kB/sW0RRGXAmhexSbbmzm8=
