@@ -9,7 +9,7 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 - sleep 3
 after_success:
-  	- "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && [[ ${TRAVIS_TAG} == '' ]] && mvn deploy -DskipTests --settings settings.xml"
+    - "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && [[ ${TRAVIS_TAG} == '' ]] && mvn deploy -DskipTests --settings settings.xml"
 env:
   global:
   - secure: WkQVoVO4OGvvPMT1XBwyWSq0zvVkFJri005UX0El4OK53rSitKKfnte8NA/DzJVmkepWAFdxNArL2Y/Q8wXSOkxut2ZSRrKSfl1YcPqB6t9/o10hDLc8zqFJckxHQOYzXEYoEbfa/5nX0Qmg3koQ8m2u31Fkd2imbHsujwk+vuopOPmeYo4VpkVVYvwg7SBw2am77seChetUR0Y/VscAu1/FK8W2Dc7N1q+X39g4gIzUeYscwpp5iouJJZd+GtCtLL/iFhS54NVjNcnkevFEi2xyiA5C97DCarunyeEvJHFTPJxWyNd+rP6vq/lOBdSa6fWnVMcUkKLKtVrYK2Oc1gj4ofObF5iHqbU5Jx0Ek+OXIxZTJhEvTP30tqAOWFOJue0L/cWS+PW8ImsGzkJ1RK2HsAZSjqFr4QS4oa+CZ2Hi7AHstwNDUP/XIzXjFsnslif5V0KfPmuwcejhkS1d6OK92cJ0iBlpGO2E1lqRfY1vBA4q22pFiEOhMJfYuO7xWC7uhcKlrP1juBxfa3fRI6nKZiv8wspJ8XWAzuYblEIJzM0fii/gSEmMPegWb3Zcyo3THrwPj4CWr1LNzLsw7hyu8y74Z7//PPwwGqGj0vBb4uDGdDbLN8im1ZXOW/WPuir3cZ0iGHKVbLXruPSjvHGoTe1mhWXJa+VJHXFx44c=
