@@ -10,14 +10,14 @@ Add the following to your list of dependencies in `pom.xml`
 <dependency>
     <groupId>com.sitture</groupId>
     <artifactId>cucumber-jvm-extentsreport</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
 Add the following if you're using gradle to your `build.gradle` file.
 
 ```
-compile 'com.sitture:cucumber-jvm-extentreport:1.0.0'
+compile 'com.sitture:cucumber-jvm-extentreport:1.0.1'
 ```
 
 ## Setup - Cucumber  Runner
@@ -39,7 +39,7 @@ public class RunCukesTest {
 		ExtentFormatter.addSystemInfo("Selenium", "v2.53.1");
 
 		Map<String, String> systemInfo = new HashMap<String, String>();
-		systemInfo.put("Cucumber", "v1.2.4");
+		systemInfo.put("Cucumber", "v1.2.5");
 		systemInfo.put("Extent Reports", "v2.41.1");
 		ExtentFormatter.addSystemInfo(systemInfo);
     }
