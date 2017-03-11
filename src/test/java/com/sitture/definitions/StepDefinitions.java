@@ -4,7 +4,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
 public class StepDefinitions {
-
 	@Given("^I have (\\d+) cukes in my belly$")
 	public void iHaveCukesInMyBelly(int cukes) throws Throwable {
 		System.out.format("Cukes: %d\n", cukes);
