@@ -1,189 +1,112 @@
 package com.sitture;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.markuputils.Markup;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import gherkin.formatter.Formatter;
+import gherkin.formatter.NiceAppendable;
+import gherkin.formatter.Reporter;
+import gherkin.formatter.model.*;
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import com.relevantcodes.extentreports.DisplayOrder;
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-import com.relevantcodes.extentreports.NetworkMode;
-
-import cucumber.runtime.CucumberException;
-import cucumber.runtime.io.URLOutputStream;
-import gherkin.formatter.Formatter;
-import gherkin.formatter.Reporter;
-import gherkin.formatter.model.Background;
-import gherkin.formatter.model.Examples;
-import gherkin.formatter.model.Feature;
-import gherkin.formatter.model.Match;
-import gherkin.formatter.model.Result;
-import gherkin.formatter.model.Scenario;
-import gherkin.formatter.model.ScenarioOutline;
-import gherkin.formatter.model.Step;
-import gherkin.formatter.model.Tag;
 
 public class ExtentFormatter implements Reporter, Formatter {
 
-	private static ExtentReports extentReport;
-	private static String DEFAULT_REPORT_DIRECTORY = "target/extent-report";
+    private NiceAppendable out;
+    private static ExtentReports extentReport;
+    private static ExtentHtmlReporter htmlReport;
+	private static String DEFAULT_REPORT_DIRECTORY = "extent-report";
 	private static String DEFAULT_FILE_NAME = "index.html";
-	private ExtentTest featureTest;
-	private ExtentTest scenarioTest;
-	private LinkedList<Step> testSteps = new LinkedList<Step>();
-	private static File reportDirectory;
-	private static Map<String, String> systemInfo;
+    private static ThreadLocal<ExtentTest> featureTestThreadLocal = new InheritableThreadLocal<>();
+    private static ThreadLocal<ExtentTest> scenarioOutlineThreadLocal = new InheritableThreadLocal<>();
+    private static ThreadLocal<ExtentTest> scenarioThreadLocal = new InheritableThreadLocal<>();
+    private static ThreadLocal<LinkedList<Step>> stepListThreadLocal = new InheritableThreadLocal<>();
+    private static ThreadLocal<ExtentTest> stepTestThreadLocal = new InheritableThreadLocal<>();
 	private boolean scenarioOutlineTest;
 
-	private static Map<String, String> MIME_TYPES_EXTENSIONS = new HashMap<String, String>() {
-		private static final long serialVersionUID = 1L;
-
-		{
-			this.put("image/bmp", "bmp");
-			this.put("image/gif", "gif");
-			this.put("image/jpeg", "jpg");
-			this.put("image/png", "png");
-			this.put("image/svg+xml", "svg");
-			this.put("video/ogg", "ogg");
-		}
-	};
-
-	public ExtentFormatter() {
-	}
-
-	public ExtentFormatter(File filePath) {
-		// init report
-		reportDirectory = new File(DEFAULT_REPORT_DIRECTORY + File.separator + System.currentTimeMillis());
-		extentReport = new ExtentReports(DEFAULT_REPORT_DIRECTORY + File.separator + DEFAULT_FILE_NAME);
-		// check if given path exists.
-        if (!filePath.getPath().equals("")) {
-            String reportPath = filePath.getPath();
-			reportDirectory = new File(reportPath);
-			extentReport = new ExtentReports(reportPath);
+	public ExtentFormatter(File report) {
+        scenarioOutlineTest = false;
+		if (null == getHtmlReport()) {
+            // init report
+            htmlReport = new ExtentHtmlReporter(getReportsDir(report));
         }
+
+        if (null == getExtentReport()) {
+		    // init extent reporter
+            extentReport = new ExtentReports();
+            extentReport.attachReporter(getHtmlReport());
+        }
+        stepListThreadLocal.set(new LinkedList<Step>());
     }
 
-	public static void initiateExtentFormatter(File filePath, Boolean replaceExisting,
-			DisplayOrder displayOrder, NetworkMode networkMode, Locale locale) {
-		reportDirectory = filePath;
-		extentReport = new ExtentReports(filePath.getAbsolutePath(), replaceExisting, displayOrder, networkMode,
-				locale);
-	}
-
-	public static void initiateExtentFormatter(File filePath, Boolean replaceExisting,
-			DisplayOrder displayOrder, NetworkMode networkMode) {
-		initiateExtentFormatter(filePath, replaceExisting, displayOrder, networkMode, null);
-	}
-
-	public static void initiateExtentFormatter(File filePath, Boolean replaceExisting,
-			DisplayOrder displayOrder, Locale locale) {
-		initiateExtentFormatter(filePath, replaceExisting, displayOrder, null, locale);
-	}
-
-	public static void initiateExtentFormatter(File filePath, Boolean replaceExisting,
-			DisplayOrder displayOrder) {
-		initiateExtentFormatter(filePath, replaceExisting, displayOrder, null, null);
-	}
-
-	public static void initiateExtentFormatter(File filePath, Boolean replaceExisting, NetworkMode networkMode,
-			Locale locale) {
-		initiateExtentFormatter(filePath, replaceExisting, null, networkMode, locale);
-	}
-
-	public static void initiateExtentFormatter(File filePath, Boolean replaceExisting,
-			NetworkMode networkMode) {
-		initiateExtentFormatter(filePath, replaceExisting, null, networkMode, null);
-	}
-
-	public static void initiateExtentFormatter(File filePath, NetworkMode networkMode) {
-		initiateExtentFormatter(filePath, null, null, networkMode, null);
-	}
-
-	public static void initiateExtentFormatter(File filePath, Boolean replaceExisting, Locale locale) {
-		initiateExtentFormatter(filePath, replaceExisting, null, null, locale);
-	}
-
-	public static void initiateExtentFormatter(File filePath, Boolean replaceExisting) {
-		initiateExtentFormatter(filePath, replaceExisting, null, null, null);
-	}
-
-	public static void initiateExtentFormatter(File filePath, Locale locale) {
-		initiateExtentFormatter(filePath, null, null, null, locale);
-	}
-
-	public static void initiateExtentFormatter(File filePath) {
-		initiateExtentFormatter(filePath, null, null, null, null);
-	}
-
-	public static void initiateExtentFormatter() {
-		String reportFilePath = DEFAULT_REPORT_DIRECTORY + File.separator + System.currentTimeMillis() + File.separator
-				+ DEFAULT_FILE_NAME;
-		initiateExtentFormatter(new File(reportFilePath));
-	}
-
-	public static void loadConfig(File configFile) {
-		extentReport.loadConfig(configFile);
-	}
-
-	public static void addSystemInfo(String param, String value) {
-		if (null == systemInfo) {
-			systemInfo = new HashMap<String, String>();
-		}
-		systemInfo.put(param, value);
-	}
-
-	public static void addSystemInfo(Map<String, String> info) {
-		if (null == systemInfo) {
-			systemInfo = new HashMap<String, String>();
-		}
-		systemInfo.putAll(info);
-	}
+    private static File getReportsDir(File file) {
+        File reportsDir = new File(
+                DEFAULT_REPORT_DIRECTORY + File.separator + System.currentTimeMillis() + File.separator + DEFAULT_FILE_NAME);
+	    if (file != null) {
+	        reportsDir = file;
+        }
+        if (!reportsDir.exists()) {
+            reportsDir.getParentFile().mkdirs();
+        }
+        return reportsDir;
+    }
 
 	public void before(Match match, Result result) {
-
 	}
 
 	public void result(Result result) {
 		if (!scenarioOutlineTest) {
-			if ("passed".equals(result.getStatus())) {
-				scenarioTest.log(LogStatus.PASS, testSteps.poll().getName(), "PASSED");
-			} else if ("failed".equals(result.getStatus())) {
-				scenarioTest.log(LogStatus.FAIL, testSteps.poll().getName(), result.getError());
-			} else if ("skipped".equals(result.getStatus())) {
-				scenarioTest.log(LogStatus.SKIP, testSteps.poll().getName(), "SKIPPED");
-			} else if ("undefined".equals(result.getStatus())) {
-				scenarioTest.log(LogStatus.UNKNOWN, testSteps.poll().getName(), "UNDEFINED");
-			}
+            if (Result.PASSED.equals(result.getStatus())) {
+                getStepTestThreadLocal().get().pass(Result.PASSED);
+            } else if (Result.FAILED.equals(result.getStatus())) {
+                getStepTestThreadLocal().get().fail(result.getError());
+            } else if (Result.SKIPPED.equals(result)) {
+                getStepTestThreadLocal().get().skip(Result.SKIPPED.getStatus());
+            } else if (Result.UNDEFINED.equals(result)) {
+                getStepTestThreadLocal().get().skip(Result.UNDEFINED.getStatus());
+            }
 		}
 	}
 
 	public void after(Match match, Result result) {
-
 	}
 
 	public void match(Match match) {
+        Step step = stepListThreadLocal.get().poll();
+        String data[][] = null;
+        if (step.getRows() != null) {
+            List<DataTableRow> rows = step.getRows();
+            int rowSize = rows.size();
+            for (int i = 0; i < rowSize; i++) {
+                DataTableRow dataTableRow = rows.get(i);
+                List<String> cells = dataTableRow.getCells();
+                int cellSize = cells.size();
+                if (data == null) {
+                    data = new String[rowSize][cellSize];
+                }
+                for (int j = 0; j < cellSize; j++) {
+                    data[i][j] = cells.get(j);
+                }
+            }
+        }
 
+        ExtentTest scenarioTest = scenarioThreadLocal.get();
+        ExtentTest stepTest = scenarioTest.createNode(step.getKeyword() + step.getName());
+
+        if (data != null) {
+            Markup table = MarkupHelper.createTable(data);
+            stepTest.info(table);
+        }
+        stepTestThreadLocal.set(stepTest);
 	}
 
 	public void embedding(String s, byte[] bytes) {
-		if (!scenarioOutlineTest) {
-			String extension = (String) MIME_TYPES_EXTENSIONS.get(s);
-			String fileName = "screenshot-" + System.currentTimeMillis() + "." + extension;
-			this.writeBytesAndClose(bytes, this.reportFileOutputStream(fileName));
-			scenarioTest.log(LogStatus.INFO, scenarioTest.addScreenCapture(fileName));
-		}
 	}
 
 	public void write(String s) {
-		if (!scenarioOutlineTest)
-			scenarioTest.log(LogStatus.INFO, s);
 	}
 
 	public void syntaxError(String s, String s1, List<String> list, String s2, Integer integer) {
@@ -193,22 +116,57 @@ public class ExtentFormatter implements Reporter, Formatter {
 	}
 
 	public void feature(Feature feature) {
-		featureTest = extentReport.startTest("Feature: " + feature.getName());
+        featureTestThreadLocal.set(getExtentReport().createTest(feature.getName()));
+        ExtentTest test = featureTestThreadLocal.get();
+        for (Tag tag : feature.getTags()) {
+            test.assignCategory(tag.getName());
+        }
 	}
 
 	public void scenarioOutline(ScenarioOutline scenarioOutline) {
 		scenarioOutlineTest = true;
+        ExtentTest node = featureTestThreadLocal.get()
+                .createNode(scenarioOutline.getKeyword() + ": " + scenarioOutline.getName());
+        // set the node
+        scenarioOutlineThreadLocal.set(node);
 	}
 
 	public void examples(Examples examples) {
+        ExtentTest test = scenarioOutlineThreadLocal.get();
+
+        String[][] data = null;
+        List<ExamplesTableRow> rows = examples.getRows();
+        int rowSize = rows.size();
+        for (int i = 0; i < rowSize; i++) {
+            ExamplesTableRow examplesTableRow = rows.get(i);
+            List<String> cells = examplesTableRow.getCells();
+            int cellSize = cells.size();
+            if (data == null) {
+                data = new String[rowSize][cellSize];
+            }
+            for (int j = 0; j < cellSize; j++) {
+                data[i][j] = cells.get(j);
+            }
+        }
+        test.info(MarkupHelper.createTable(data));
 	}
 
 	public void startOfScenarioLifeCycle(Scenario scenario) {
-		scenarioTest = extentReport.startTest("Scenario: " + scenario.getName());
-		for (Tag tag : scenario.getTags()) {
-			scenarioTest.assignCategory(tag.getName());
-		}
-		scenarioOutlineTest = false;
+	    // set scenario outline to be false
+        scenarioOutlineTest = false;
+        ExtentTest scenarioNode;
+        if (scenarioOutlineThreadLocal.get() != null && scenario.getKeyword().trim()
+                .equalsIgnoreCase("Scenario Outline")) {
+            scenarioNode =
+                    scenarioOutlineThreadLocal.get().createNode("Scenario: " + scenario.getName());
+        } else {
+            scenarioNode =
+                    featureTestThreadLocal.get().createNode("Scenario: " + scenario.getName());
+        }
+        for (Tag tag : scenario.getTags()) {
+            scenarioNode.assignCategory(tag.getName());
+        }
+        scenarioThreadLocal.set(scenarioNode);
 	}
 
 	public void background(Background background) {
@@ -218,44 +176,39 @@ public class ExtentFormatter implements Reporter, Formatter {
 	}
 
 	public void step(Step step) {
-		if (!scenarioOutlineTest)
-			testSteps.add(step);
+		if (!scenarioOutlineTest) {
+            System.out.println(step.getName());
+            stepListThreadLocal.get().add(step);
+        }
 	}
 
 	public void endOfScenarioLifeCycle(Scenario scenario) {
-		if (!scenarioOutlineTest) {
-			extentReport.endTest(scenarioTest);
-			featureTest.appendChild(scenarioTest);
-		}
 	}
 
 	public void done() {
+        getExtentReport().flush();
 	}
 
 	public void close() {
-		extentReport.addSystemInfo(systemInfo);
-		extentReport.close();
 	}
 
 	public void eof() {
-		extentReport.endTest(featureTest);
-		extentReport.flush();
 	}
 
-	private OutputStream reportFileOutputStream(String fileName) {
-		try {
-			return new URLOutputStream(new URL(reportDirectory.toURI().toURL(), fileName));
-		} catch (IOException exception) {
-			throw new CucumberException(exception);
-		}
-	}
+    public static ExtentReports getExtentReport() {
+        return extentReport;
+    }
 
-	private void writeBytesAndClose(byte[] buf, OutputStream out) {
-		try {
-			out.write(buf);
-		} catch (IOException exception) {
-			throw new CucumberException("Unable to write to report file item: ", exception);
-		}
-	}
+    public static ExtentHtmlReporter getHtmlReport() {
+        return htmlReport;
+    }
+
+    public static ThreadLocal<ExtentTest> getStepTestThreadLocal() {
+        return stepTestThreadLocal;
+    }
+
+    public static ThreadLocal<ExtentTest> getScenarioThreadLocal() {
+        return scenarioThreadLocal;
+    }
 
 }

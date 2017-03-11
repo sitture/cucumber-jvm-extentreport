@@ -4,7 +4,7 @@
 	<groupId>com.sitture</groupId>
 	<artifactId>cucumber-jvm-extentreport</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>2.0.0-SNAPSHOT</version>
 	<name>cucumber-jvm-extentreport</name>
 	<url>https://github.com/sitture/cucumber-jvm-extentreport</url>
 	<description>A custom cucumber-jvm formatter using ExtentReports</description>
@@ -12,8 +12,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.7</java.version>
-		<extentreports.version>2.41.1</extentreports.version>
+		<java.version>1.8</java.version>
+		<extentreports.version>3.0.2</extentreports.version>
 		<cucumber.version>1.2.5</cucumber.version>
 		<junit.version>4.12</junit.version>
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
@@ -56,11 +56,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.relevantcodes</groupId>
-			<artifactId>extentreports</artifactId>
-			<version>${extentreports.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java</artifactId>
 			<version>${cucumber.version}</version>
@@ -75,6 +70,12 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>${extentreports.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

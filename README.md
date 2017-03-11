@@ -1,7 +1,10 @@
-# cucumber-jvm-extentreport 
+# cucumber-jvm-extentreport
 [![Build Status](https://travis-ci.org/sitture/cucumber-jvm-extentreport.svg?branch=master&style=flat-square)](https://travis-ci.org/sitture/cucumber-jvm-extentreport) [![Maven Central](https://img.shields.io/maven-central/v/com.sitture/cucumber-jvm-extentreport.svg?maxAge=300&style=flat-square)](http://search.maven.org/#search|ga|1|g:"com.sitture") [![Dependency Status](https://www.versioneye.com/user/projects/57dadac9bf3e4c004340d4be/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57dadac9bf3e4c004340d4be) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000&style=flat-square)](https://raw.githubusercontent.com/sitture/cucumber-jvm-extentreport/master/LICENSE)
 
 A custom `cucumber-jvm` report formatter using [ExtentReports](http://extentreports.relevantcodes.com)
+
+## Preconditions
+- Maven / Java 8
 
 ## Usage
 Add the following to your list of dependencies in `pom.xml`
@@ -10,14 +13,14 @@ Add the following to your list of dependencies in `pom.xml`
 <dependency>
     <groupId>com.sitture</groupId>
     <artifactId>cucumber-jvm-extentsreport</artifactId>
-    <version>1.0.1</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
 Add the following if you're using gradle to your `build.gradle` file.
 
 ```
-compile 'com.sitture:cucumber-jvm-extentreport:1.0.1'
+compile 'com.sitture:cucumber-jvm-extentreport:2.0.0'
 ```
 
 ## Setup - Cucumber  Runner
@@ -25,33 +28,24 @@ Add the following to your cucumber runner class:
 
 ```java
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"com.sitture.ExtentFormatter"})
+@CucumberOptions(
+        features = {"src/test/resources"},
+        plugin = {"com.sitture.ExtentFormatter:output/extent-report/index.html", "html:output/html-report"})
 public class RunCukesTest {
-    @BeforeClass
-    public static void setup() {
-        // Initiates the extent report and generates the output in the target/extent-report/<TIMESTAMP>/index.html file by default.
-        ExtentFormatter.initiateExtentFormatter();
-
+    @AfterClass
+	public static void setup() {
         // Loads the extent config xml to customize on the report.
-        ExtentFormatter.loadConfig(new File("src/test/resources/config.xml"));
-
-        ExtentFormatter.addSystemInfo("Browser", "Chrome");
-		ExtentFormatter.addSystemInfo("Selenium", "v2.53.1");
-
-		Map<String, String> systemInfo = new HashMap<String, String>();
-		systemInfo.put("Cucumber", "v1.2.5");
-		systemInfo.put("Extent Reports", "v2.41.1");
-		ExtentFormatter.addSystemInfo(systemInfo);
-    }
+        ExtentReporter.setConfig("src/test/resources/config.xml");
+        // adding system information
+        ExtentReporter.setSystemInfo("Browser", "Chrome");
+        ExtentReporter.setSystemInfo("Selenium", "v2.53.1");
+	}
 }
 ```
 ### Reports Location
 
-By default, reports are generated at `target/extent-report/<TIMESTAMP>/index.html`. To change the default location, add a parameter when initializing the report. E.g.
-
-```java
-ExtentFormatter.initiateExtentFormatter(new File("target/myNewLocation/index.html"));
-```
+The ExtentFormatter takes the location of reports directory as the parameter.
+E.g. `com.sitture.ExtentFormatter:output/extent-report/index.html` will generate the report at `output/extent-report/index.html`.
 
 ### Configuration file
 
@@ -59,7 +53,7 @@ Refer here to create the config xml file: [ExtentReports Configuration](http://e
 To load the config file:
 
 ```
-ExtentFormatter.loadConfig(new File("your config xml file path"));
+ExtentReporter.setConfig(new File("your config xml file path"));
 ```
 
 ## Contributing
