@@ -6,8 +6,9 @@ description = "A custom cucumber-jvm formatter using ExtentReports"
 apply plugin: 'java'
 apply plugin: 'maven'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
 }
@@ -16,11 +17,33 @@ repositories {
      mavenCentral()
 }
 
-dependencies {
-    compile 'info.cukes:cucumber-java:1.2.5'
-    compile 'info.cukes:cucumber-junit:1.2.5'
-    compileOnly 'com.aventstack:extentreports:3.0.7'
+ext {
+    cucumberVersion = '1.2.5'
+    extentReportsVersion = '3.0.7'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'com.aventstack:extentreports:3.0.7'
+    junitVersion = '4.12'
+}
+
+dependencies {
+    compile "info.cukes:cucumber-java:$cucumberVersion"
+    compile "info.cukes:cucumber-junit:$cucumberVersion"
+    compileOnly "com.aventstack:extentreports:$extentReportsVersion"
+
+    testCompile "junit:junit:$junitVersion"
+    testCompile "com.aventstack:extentreports:$extentReportsVersion"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes, group: "documentation") {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc, group: "documentation") {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }
