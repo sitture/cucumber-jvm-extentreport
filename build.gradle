@@ -4,7 +4,7 @@ version = '2.0.3-SNAPSHOT'
 description = "A custom cucumber-jvm formatter using ExtentReports"
 
 apply plugin: 'java'
-apply plugin: 'maven'
+apply plugin: 'signing'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -46,4 +46,8 @@ task javadocJar(type: Jar, dependsOn: javadoc, group: "documentation") {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+signing {
+    sign configurations.archives
 }
