@@ -4,7 +4,12 @@
 A custom `cucumber-jvm` report formatter using [ExtentReports](http://extentreports.relevantcodes.com)
 
 ## Preconditions
-- Maven / Java 8
+
+**Required**
+- Java 8
+
+**Optional**
+- Maven (If using mvn to build)
 
 ## Usage
 Add the following to your list of dependencies in `pom.xml`
@@ -63,3 +68,15 @@ ExtentReporter.setConfig(new File("your config xml file path"));
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Building
+
+### Gradle
+
+If using the gradle build system, you can use:
+
+```
+./gradlew build
+```
+
+To generate the complete set of signed and verified artifacts under the `build/libs` folder
