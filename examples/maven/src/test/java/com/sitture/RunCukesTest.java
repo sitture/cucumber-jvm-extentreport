@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = {"src/test/resources"},
         snippets = SnippetType.CAMELCASE,
-        plugin = {"com.sitture.ExtentFormatter:output/extent-report/index.html", "html:output/html-report"}
+        plugin = {"com.sitture.ExtentFormatter:target/output/extent-report/index.html", "html:target/output/html-report"}
 )
 public class RunCukesTest {
 

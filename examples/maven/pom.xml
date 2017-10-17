@@ -10,13 +10,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+    <cucumber-jvm-extentreport.version>2.0.3-SNAPSHOT</cucumber-jvm-extentreport.version>
 		<extentreports.version>3.0.7</extentreports.version>
-		<cucumber.version>1.2.5</cucumber.version>
-		<junit.version>4.12</junit.version>
-		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+    <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+    <java.version>1.8</java.version>
 	</properties>
 
 	<licenses>
@@ -31,30 +28,14 @@
     <dependency>
       <groupId>com.sitture</groupId>
       <artifactId>cucumber-jvm-extentreport</artifactId>
-      <version>2.0.3-SNAPSHOT</version>
+      <version>${cucumber-jvm-extentreport.version}</version>
     </dependency>
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>${cucumber.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-junit</artifactId>
-			<version>${cucumber.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.aventstack</groupId>
-			<artifactId>extentreports</artifactId>
-			<version>${extentreports.version}</version>
-			<scope>provided</scope>
-		</dependency>
+    <dependency>
+      <groupId>com.aventstack</groupId>
+      <artifactId>extentreports</artifactId>
+      <version>${extentreports.version}</version>
+      <scope>provided</scope>
+    </dependency>
 	</dependencies>
 
 	<build>
@@ -66,7 +47,6 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
-					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 		</plugins>
