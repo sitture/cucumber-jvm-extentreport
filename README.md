@@ -12,15 +12,15 @@ Add the following to your list of dependencies in `pom.xml`
 ```
 <dependency>
     <groupId>com.sitture</groupId>
-    <artifactId>cucumber-jvm-extentsreport</artifactId>
-    <version>2.0.0</version>
+    <artifactId>cucumber-jvm-extentreport</artifactId>
+    <version>2.0.2</version>
 </dependency>
 ```
 
 Add the following if you're using gradle to your `build.gradle` file.
 
 ```
-compile 'com.sitture:cucumber-jvm-extentreport:2.0.0'
+compile 'com.sitture:cucumber-jvm-extentreport:2.0.2'
 ```
 
 ## Setup - Cucumber  Runner
