@@ -3,6 +3,8 @@
 
 A custom `cucumber-jvm` report formatter using [ExtentReports](http://extentreports.relevantcodes.com)
 
+This module is compatible with Cucumber verison 2.0.0+. 
+
 ## Preconditions
 - Maven / Java 8
 
@@ -13,14 +15,14 @@ Add the following to your list of dependencies in `pom.xml`
 <dependency>
     <groupId>com.sitture</groupId>
     <artifactId>cucumber-jvm-extentsreport</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
 Add the following if you're using gradle to your `build.gradle` file.
 
 ```
-compile 'com.sitture:cucumber-jvm-extentreport:2.0.0'
+compile 'com.sitture:cucumber-jvm-extentreport:3.0.0'
 ```
 
 ## Setup - Cucumber  Runner
