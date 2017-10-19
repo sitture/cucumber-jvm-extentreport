@@ -3,17 +3,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sitture</groupId>
 	<artifactId>cucumber-jvm-extentreport-maven-example</artifactId>
-	<packaging>jar</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<description>A maven example for the custom cucumber-jvm formatter using ExtentReports</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <cucumber-jvm-extentreport.version>2.0.3-SNAPSHOT</cucumber-jvm-extentreport.version>
+		<cucumber-jvm-extentreport.version>2.0.2</cucumber-jvm-extentreport.version>
 		<extentreports.version>3.0.7</extentreports.version>
-    <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-    <java.version>1.8</java.version>
+		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 	<licenses>
@@ -25,17 +24,17 @@
 	</licenses>
 
 	<dependencies>
-    <dependency>
-      <groupId>com.sitture</groupId>
-      <artifactId>cucumber-jvm-extentreport</artifactId>
-      <version>${cucumber-jvm-extentreport.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.aventstack</groupId>
-      <artifactId>extentreports</artifactId>
-      <version>${extentreports.version}</version>
-      <scope>provided</scope>
-    </dependency>
+		<dependency>
+			<groupId>com.sitture</groupId>
+			<artifactId>cucumber-jvm-extentreport</artifactId>
+			<version>${cucumber-jvm-extentreport.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>${extentreports.version}</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
