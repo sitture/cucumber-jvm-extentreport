@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extentreports>
+	<configuration>
+		<!-- standard, dark -->
+		<theme>standard</theme>
+		<!-- defaults to UTF-8 -->
+		<encoding>UTF-8</encoding>
+		<!-- title of the document -->
+		<documentTitle>Test Results</documentTitle>
+		<reportName>Test Results</reportName>
+		<reportHeadline> - v1.0.0</reportHeadline>
+		<!-- defaults to yyyy-MM-dd -->
+		<dateFormat>dd-MM-yyyy</dateFormat>
+	</configuration>
+</extentreports>
