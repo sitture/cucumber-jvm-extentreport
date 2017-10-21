@@ -50,12 +50,7 @@ public class ExtentFormatter implements Formatter {
 
     private String currentFeatureFile;
     private boolean scenarioOutlineTest;
-    //TODO: refactor, so that these two are replaced by their thread local equivalents.
-    private ExtentTest currentScenarioTest;
-    private ScenarioOutline currentScenarioOutline;
-
     private final TestSourcesModel testSources = new TestSourcesModel();
-
 
     private EventHandler<TestSourceRead> testSourceReadHandler = new EventHandler<TestSourceRead>() {
         @Override
@@ -171,7 +166,6 @@ public class ExtentFormatter implements Formatter {
             for (Tag tag : cucumberFeature.getTags()) {
                 feature.assignCategory(tag.getName());
             }
-            currentScenarioTest = feature;
             featureTestThreadLocal.set(feature);
         }
     }
@@ -195,21 +189,18 @@ public class ExtentFormatter implements Formatter {
         if (TestSourcesModel.isScenarioOutlineScenario(testSources.getAstNode(currentFeatureFile, testCase.getLine()))) {
             ScenarioOutline scenarioOutline = (ScenarioOutline) TestSourcesModel.getScenarioDefinition(testSources.getAstNode(currentFeatureFile, testCase.getLine()));
             scenarioOutlineTest = true;
-            if (currentScenarioOutline == null || !currentScenarioOutline.equals(scenarioOutline)) {
-                currentScenarioOutline = scenarioOutline;
-                ExtentTest node = featureTestThreadLocal.get()
-                        .createNode(com.aventstack.extentreports.gherkin.model.ScenarioOutline.class, scenarioOutline.getName(), scenarioOutline.getDescription());
-                scenarioOutlineThreadLocal.set(node);
-                List<Examples> examples = currentScenarioOutline.getExamples();
-                for (Examples example : examples) {
-                    examples(example);
-                }
-                currentScenarioTest = node;
 
-                for (Tag tag : scenarioOutline.getTags()) {
-                    currentScenarioTest.assignCategory(tag.getName());
-                }
+            ExtentTest node = featureTestThreadLocal.get()
+                    .createNode(com.aventstack.extentreports.gherkin.model.ScenarioOutline.class, scenarioOutline.getName(), scenarioOutline.getDescription());
+            scenarioOutlineThreadLocal.set(node);
 
+            List<Examples> examples = scenarioOutline.getExamples();
+            for (Examples example : examples) {
+                examples(example);
+            }
+
+            for (Tag tag : scenarioOutline.getTags()) {
+                node.assignCategory(tag.getName());
             }
         }
     }
@@ -217,8 +208,8 @@ public class ExtentFormatter implements Formatter {
     private void handleScenario(TestCase testCase) {
         ExtentTest scenario;
         if (scenarioOutlineTest) {
-            ScenarioDefinition scenarioDefinition = TestSourcesModel.getScenarioDefinition(testSources.getAstNode(currentFeatureFile, testCase.getLine()));
             scenarioOutlineTest = false;
+            ScenarioDefinition scenarioDefinition = TestSourcesModel.getScenarioDefinition(testSources.getAstNode(currentFeatureFile, testCase.getLine()));
             scenario = scenarioOutlineThreadLocal.get().createNode(Scenario.class, scenarioDefinition.getName());
         } else {
             gherkin.ast.Scenario scenarioDefinition = (gherkin.ast.Scenario) TestSourcesModel.getScenarioDefinition(testSources.getAstNode(currentFeatureFile, testCase.getLine()));
@@ -228,7 +219,6 @@ public class ExtentFormatter implements Formatter {
             }
         }
         scenarioThreadLocal.set(scenario);
-        currentScenarioOutline = null;
     }
 
     private void handleTestRunFinished() {
