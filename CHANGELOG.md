@@ -1,12 +1,11 @@
 ## Changelog
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-### v3.0.7
+### v3.0.0
 - Updates version of Cucumber to `2.0.1`
-- Aligns versioning of formatter with `extentreports`
 
 ### v2.0.2
 - Updates version of extent-reports to `3.0.7`
@@ -22,4 +21,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Updated dependecies to latest
 
 ### v1.0.0
-- Initial changes released on top of the fork(https://github.com/email2vimalraj/CucumberExtentReporter) 
+- Initial changes released on top of the fork(https://github.com/email2vimalraj/CucumberExtentReporter)
