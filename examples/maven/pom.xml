@@ -9,7 +9,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<cucumber-jvm-extentreport.version>2.0.2</cucumber-jvm-extentreport.version>
+		<cucumber-jvm-extentreport.version>3.0.7-SNAPSHOT</cucumber-jvm-extentreport.version>
 		<extentreports.version>3.0.7</extentreports.version>
 		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
 		<java.version>1.8</java.version>

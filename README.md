@@ -3,7 +3,8 @@
 
 A custom `cucumber-jvm` report formatter using [ExtentReports](http://extentreports.relevantcodes.com)
 
-This module is compatible with Cucumber verison 2.0.0+. 
+The current version is only compatible with latest cucumber `2.0.1+`.
+__Note:__ Use version `2.0.1` with cucumber `1.2.5`.
 
 ## Preconditions
 - Maven / Java 8

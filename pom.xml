@@ -4,7 +4,7 @@
 	<groupId>com.sitture</groupId>
 	<artifactId>cucumber-jvm-extentreport</artifactId>
 	<packaging>jar</packaging>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>3.0.7-SNAPSHOT</version>
 	<name>cucumber-jvm-extentreport</name>
 	<url>https://github.com/sitture/cucumber-jvm-extentreport</url>
 	<description>A custom cucumber-jvm formatter using ExtentReports</description>
