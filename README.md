@@ -4,6 +4,7 @@
 A custom `cucumber-jvm` report formatter using [ExtentReports](http://extentreports.relevantcodes.com)
 
 The current version is only compatible with latest cucumber `2.0.1+`.
+
 __Note:__ Use version `2.0.1` with cucumber `1.2.5`.
 
 ## Preconditions
