@@ -4,7 +4,7 @@
 	<groupId>com.sitture</groupId>
 	<artifactId>cucumber-jvm-extentreport</artifactId>
 	<packaging>jar</packaging>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>3.1.0-SNAPSHOT</version>
 	<name>cucumber-jvm-extentreport</name>
 	<url>https://github.com/sitture/cucumber-jvm-extentreport</url>
 	<description>A custom cucumber-jvm formatter using ExtentReports</description>
@@ -14,7 +14,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<extentreports.version>3.0.7</extentreports.version>
-		<cucumber.version>2.0.1</cucumber.version>
+		<cucumber.version>2.1.0</cucumber.version>
 		<junit.version>4.12</junit.version>
 		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
 		<nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>

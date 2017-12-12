@@ -17,7 +17,6 @@ import cucumber.api.event.TestSourceRead;
 import cucumber.api.event.TestStepFinished;
 import cucumber.api.event.TestStepStarted;
 import cucumber.api.formatter.Formatter;
-import cucumber.runtime.formatter.TestSourcesModel;
 import gherkin.ast.Background;
 import gherkin.ast.Examples;
 import gherkin.ast.Feature;
