@@ -30,4 +30,7 @@ local.properties
 target/
 output/
 extent-report/
+build/
+.gradle/
+!/gradle/wrapper/gradle-wrapper.jar
 *.DS_Store
